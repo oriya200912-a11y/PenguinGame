@@ -339,31 +339,38 @@ public class GamePanel extends JPanel {
         if (winner == 1) {
     
             player1Score++;
-            message = "Player 1 wins round " + currentRound + "!";
+    
+            message = "Player 1 wins the round!";
     
         } else if (winner == 2) {
     
             player2Score++;
-            message = "Player 2 wins round " + currentRound + "!";
+    
+            message = "Player 2 wins the round!";
     
         } else {
     
-            message = "Round " + currentRound + " is a draw!";
+            message = "The round is a draw!";
         }
     
-        message += "\n\nScore:"
-                + "\nPlayer 1: " + player1Score
-                + "\nPlayer 2: " + player2Score;
+        message +=
+                "\n\nScore:"
+                        + "\nPlayer 1: " + player1Score
+                        + "\nPlayer 2: " + player2Score;
     
-        JOptionPane.showMessageDialog(this, message);
+        JOptionPane.showMessageDialog(
+                this,
+                message
+        );
     
-        if (currentRound < MAX_ROUNDS) {
+        if (player1Score >= WINNING_SCORE ||
+                player2Score >= WINNING_SCORE) {
     
-            startNextRound();
+            finishMatch();
     
         } else {
     
-            finishMatch();
+            startNextRound();
         }
     }
     private void startNextRound() {
