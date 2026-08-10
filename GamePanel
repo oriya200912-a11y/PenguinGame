@@ -443,9 +443,12 @@ public class GamePanel extends JPanel {
         // 👇 תוסיפי כאן
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 18));
-    
-        g.drawString("Round: " + currentRound + "/3", 10, 25);
-    
+        g.drawString(
+                "First to 3 wins!",
+                10,
+                25
+        );
+            
         g.drawString(
                 "Player 1: " + player1Score +
                 "    Player 2: " + player2Score,
