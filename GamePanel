@@ -186,6 +186,44 @@ public class GamePanel extends JPanel {
                 && player1.getY() < player2.getY() + player2.getSize()
                 && player1.getY() + player1.getSize() > player2.getY();
     }
+    private void moveWithPush(Penguin mover, Penguin other, int dx, int dy) {
+
+        int oldMoverX = mover.getX();
+        int oldMoverY = mover.getY();
+    
+        int oldOtherX = other.getX();
+        int oldOtherY = other.getY();
+    
+        // מזיזים קודם את השחקן שרוצה לזוז
+        mover.setPosition(
+                mover.getX() + dx,
+                mover.getY() + dy
+        );
+    
+        // בודקים שלא יצא מהלוח
+        if (isOutsideBoard(mover)) {
+            mover.setPosition(oldMoverX, oldMoverY);
+            return;
+        }
+    
+        // אם הוא התנגש בשחקן השני
+        if (arePlayersColliding()) {
+    
+            // דוחפים את השחקן השני באותו הכיוון
+            other.setPosition(
+                    other.getX() + dx,
+                    other.getY() + dy
+            );
+    
+            // אם השחקן שנדחף יצא מהלוח
+            if (isOutsideBoard(other)) {
+    
+                // מחזירים את שניהם למקום
+                mover.setPosition(oldMoverX, oldMoverY);
+                other.setPosition(oldOtherX, oldOtherY);
+            }
+        }
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
