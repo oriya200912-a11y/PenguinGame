@@ -2,52 +2,44 @@ import java.awt.*;
 
 public class Penguin {
 
-    private int row;
-    private int col;
+    private int x;
+    private int y;
     private Color color;
 
-    public Penguin(int row, int col, Color color) {
-        this.row = row;
-        this.col = col;
+    private final int SIZE = 40;
+    private final int SPEED = 5;
+
+    public Penguin(int x, int y, Color color) {
+        this.x = x;
+        this.y = y;
         this.color = color;
     }
 
     public void moveUp() {
-        if (row > 0) {
-            row--;
-        }
+        y -= SPEED;
     }
 
-    public void moveDown(int maxRows) {
-        if (row < maxRows - 1) {
-            row++;
-        }
+    public void moveDown() {
+        y += SPEED;
     }
 
     public void moveLeft() {
-        if (col > 0) {
-            col--;
-        }
+        x -= SPEED;
     }
 
-    public void moveRight(int maxCols) {
-        if (col < maxCols - 1) {
-            col++;
-        }
+    public void moveRight() {
+        x += SPEED;
     }
 
-    public void draw(Graphics g, int tileSize, int offsetX, int offsetY) {
-
-        int x = col * tileSize + offsetX;
-        int y = row * tileSize + offsetY;
+    public void draw(Graphics g) {
 
         g.setColor(color);
 
         g.fillOval(
-                x + 10,
-                y + 10,
-                tileSize - 20,
-                tileSize - 20
+                x,
+                y,
+                SIZE,
+                SIZE
         );
     }
 }
