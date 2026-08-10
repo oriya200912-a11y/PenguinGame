@@ -290,7 +290,7 @@ public class GamePanel extends JPanel {
     
         timer.start();
     }
-       private void checkGameOver() {
+    private void checkGameOver() {
     
         int row1 = player1.getCurrentRow();
         int col1 = player1.getCurrentCol();
@@ -302,37 +302,34 @@ public class GamePanel extends JPanel {
         boolean player2InWater = false;
     
         if (row1 >= 0 && row1 < ROWS &&
-            col1 >= 0 && col1 < COLS) {
+                col1 >= 0 && col1 < COLS) {
     
             player1InWater =
                     tiles[row1][col1].getState() == IceTile.WATER;
         }
     
         if (row2 >= 0 && row2 < ROWS &&
-            col2 >= 0 && col2 < COLS) {
+                col2 >= 0 && col2 < COLS) {
     
             player2InWater =
                     tiles[row2][col2].getState() == IceTile.WATER;
         }
     
-        // שניהם נפלו באותו זמן
+        // שניהם נפלו
         if (player1InWater && player2InWater) {
-            gameRunning = false;
-            JOptionPane.showMessageDialog(this, "It's a draw!");
+            finishRound(0);
             return;
         }
     
-        // רק שחקן 1 נפל
+        // Player 1 נפל
         if (player1InWater) {
-            gameRunning = false;
-            JOptionPane.showMessageDialog(this, "Player 2 wins!");
+            finishRound(2);
             return;
         }
     
-        // רק שחקן 2 נפל
+        // Player 2 נפל
         if (player2InWater) {
-            gameRunning = false;
-            JOptionPane.showMessageDialog(this, "Player 1 wins!");
+            finishRound(1);
         }
     }
     @Override
