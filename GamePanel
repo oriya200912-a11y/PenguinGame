@@ -433,19 +433,35 @@ public class GamePanel extends JPanel {
         JOptionPane.showMessageDialog(this, message);
     }
     @Override
+
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+    
+        // 👇 תוסיפי כאן
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Arial", Font.BOLD, 18));
+    
+        g.drawString("Round: " + currentRound + "/3", 10, 25);
+    
+        g.drawString(
+                "Player 1: " + player1Score +
+                "    Player 2: " + player2Score,
+                280,
+                25
+        );
+    
+        // ציור הקרח
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-
+    
                 int x = col * TILE_SIZE + BOARD_X;
                 int y = row * TILE_SIZE + BOARD_Y;
-
+    
                 tiles[row][col].draw(g, x, y, TILE_SIZE);
             }
         }
-
+    
+        // ציור השחקנים
         player1.draw(g);
         player2.draw(g);
     }
