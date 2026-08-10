@@ -250,7 +250,7 @@ public class GamePanel extends JPanel {
     
                 IceTile tile = tiles[row][col];
     
-                Timer timer = new Timer(2000, e -> {
+                Timer timer = new Timer(1000, e -> {
                     tile.breakIce();
                     repaint();
                 });
