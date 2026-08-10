@@ -3,13 +3,30 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
 
+    private final int ROWS = 8;
+    private final int COLS = 10;
+    private final int TILE_SIZE = 60;
+
     public GamePanel() {
-
         setBackground(Color.CYAN);
+    }
 
-        JLabel label = new JLabel("GAME STARTED!");
-        label.setFont(new Font("Arial", Font.BOLD, 30));
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-        add(label);
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+
+                int x = col * TILE_SIZE + 100;
+                int y = row * TILE_SIZE + 40;
+
+                g.setColor(Color.WHITE);
+                g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+
+                g.setColor(Color.BLUE);
+                g.drawRect(x, y, TILE_SIZE, TILE_SIZE);
+            }
+        }
     }
 }
