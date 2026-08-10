@@ -59,4 +59,29 @@ public class Penguin {
     public int getCenterY() {
         return y + SIZE / 2;
     }
+    public boolean updateTilePosition(int boardX, int boardY, int tileSize) {
+    
+        int centerX = x + SIZE / 2;
+        int centerY = y + SIZE / 2;
+    
+        int newCol = (centerX - boardX) / tileSize;
+        int newRow = (centerY - boardY) / tileSize;
+    
+        if (newRow != currentRow || newCol != currentCol) {
+    
+            currentRow = newRow;
+            currentCol = newCol;
+    
+            return true;
+        }
+    
+        return false;
+    }
+    public int getCurrentRow() {
+        return currentRow;
+    }
+    
+    public int getCurrentCol() {
+        return currentCol;
+    }
 }
