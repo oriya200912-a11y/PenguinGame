@@ -15,31 +15,32 @@ public class Penguin {
         this.color = color;
     }
 
-    public void moveUp() {
-        y -= SPEED;
+    public void moveUp(int top) {
+        if (y - SPEED >= top) {
+            y -= SPEED;
+        }
     }
 
-    public void moveDown() {
-        y += SPEED;
+    public void moveDown(int bottom) {
+        if (y + SIZE + SPEED <= bottom) {
+            y += SPEED;
+        }
     }
 
-    public void moveLeft() {
-        x -= SPEED;
+    public void moveLeft(int left) {
+        if (x - SPEED >= left) {
+            x -= SPEED;
+        }
     }
 
-    public void moveRight() {
-        x += SPEED;
+    public void moveRight(int right) {
+        if (x + SIZE + SPEED <= right) {
+            x += SPEED;
+        }
     }
 
     public void draw(Graphics g) {
-
         g.setColor(color);
-
-        g.fillOval(
-                x,
-                y,
-                SIZE,
-                SIZE
-        );
+        g.fillOval(x, y, SIZE, SIZE);
     }
 }
