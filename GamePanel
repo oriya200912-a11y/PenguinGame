@@ -26,13 +26,16 @@ public class GamePanel extends JPanel {
 
                 int x = col * TILE_SIZE + 100;
                 int y = row * TILE_SIZE + 40;
-
+    
                 g.setColor(Color.WHITE);
                 g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
-
+    
                 g.setColor(Color.BLUE);
                 g.drawRect(x, y, TILE_SIZE, TILE_SIZE);
             }
         }
+
+        player1.draw(g, TILE_SIZE, 100, 40);
+        player2.draw(g, TILE_SIZE, 100, 40);
     }
 }
