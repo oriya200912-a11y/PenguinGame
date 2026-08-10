@@ -375,8 +375,6 @@ public class GamePanel extends JPanel {
     }
     private void startNextRound() {
     
-        currentRound++;
-    
         // יוצרים מחדש את כל הקרח
         tiles = new IceTile[ROWS][COLS];
     
