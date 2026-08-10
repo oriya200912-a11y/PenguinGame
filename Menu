@@ -17,16 +17,16 @@ public class Menu extends JPanel {
 
         // הוראות
         JLabel instructions = new JLabel(
-                "<html><div style='text-align: center;'>"
-                + "Stay on the ice and be the last penguin alive!<br><br>"
-                + "Player 1: W A S D<br>"
-                + "Player 2: Arrow Keys"
-                + "</div></html>"
-        );
+        "<html><div style='text-align: center;'>"
+        + "Stay on the ice and be the last penguin alive!<br><br>"
+        + "Player 1: W A S D<br>"
+        + "Player 2: Arrow Keys"
+        + "</div></html>",
+        SwingConstants.CENTER
+);
 
-        instructions.setFont(new Font("Arial", Font.PLAIN, 18));
-        instructions.setAlignmentX(Component.CENTER_ALIGNMENT);
-
+instructions.setFont(new Font("Arial", Font.PLAIN, 18));
+instructions.setAlignmentX(Component.CENTER_ALIGNMENT);
         // כפתור התחלה
         startButton = new JButton("START GAME");
         startButton.setFont(new Font("Arial", Font.BOLD, 20));
