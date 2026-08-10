@@ -120,53 +120,45 @@ public class GamePanel extends JPanel {
 
             while (gameRunning) {
 
-                int oldX1 = player1.getX();
-                int oldY1 = player1.getY();
-            
+               int speed = player1.getSpeed();
+
+                // PLAYER 1
+                
                 if (wPressed) {
-                    player1.moveUp(BOARD_Y);
+                    moveWithPush(player1, player2, 0, -speed);
                 }
-            
+                
                 if (sPressed) {
-                    player1.moveDown(BOARD_Y + BOARD_HEIGHT);
+                    moveWithPush(player1, player2, 0, speed);
                 }
-            
+                
                 if (aPressed) {
-                    player1.moveLeft(BOARD_X);
+                    moveWithPush(player1, player2, -speed, 0);
                 }
-            
+                
                 if (dPressed) {
-                    player1.moveRight(BOARD_X + BOARD_WIDTH);
+                    moveWithPush(player1, player2, speed, 0);
                 }
-            
-                if (arePlayersColliding()) {
-                    player1.setPosition(oldX1, oldY1);
-                }
-            
-            
-                int oldX2 = player2.getX();
-                int oldY2 = player2.getY();
-            
+                
+                
+                // PLAYER 2
+                
                 if (upPressed) {
-                    player2.moveUp(BOARD_Y);
+                    moveWithPush(player2, player1, 0, -speed);
                 }
-            
+                
                 if (downPressed) {
-                    player2.moveDown(BOARD_Y + BOARD_HEIGHT);
+                    moveWithPush(player2, player1, 0, speed);
                 }
-            
+                
                 if (leftPressed) {
-                    player2.moveLeft(BOARD_X);
+                    moveWithPush(player2, player1, -speed, 0);
                 }
-            
+                
                 if (rightPressed) {
-                    player2.moveRight(BOARD_X + BOARD_WIDTH);
+                    moveWithPush(player2, player1, speed, 0);
                 }
-            
-                if (arePlayersColliding()) {
-                    player2.setPosition(oldX2, oldY2);
-                }
-            
+                
                 repaint();
             
                 try {
