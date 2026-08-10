@@ -133,61 +133,58 @@ public class GamePanel extends JPanel {
             }
         });
 
-        Thread gameThread = new Thread(() -> {
-
-            while (gameRunning) {
-
-               int speed = player1.getSpeed();
-
-                // PLAYER 1
-                
+       while (gameRunning) {
+        
+            if (!roundOver) {
+        
+                int speed = player1.getSpeed();
+        
                 if (wPressed) {
                     moveWithPush(player1, player2, 0, -speed);
                 }
-                
+        
                 if (sPressed) {
                     moveWithPush(player1, player2, 0, speed);
                 }
-                
+        
                 if (aPressed) {
                     moveWithPush(player1, player2, -speed, 0);
                 }
-                
+        
                 if (dPressed) {
                     moveWithPush(player1, player2, speed, 0);
                 }
-                
-                
-                // PLAYER 2
-                
+        
                 if (upPressed) {
                     moveWithPush(player2, player1, 0, -speed);
                 }
-                
+        
                 if (downPressed) {
                     moveWithPush(player2, player1, 0, speed);
                 }
-                
+        
                 if (leftPressed) {
                     moveWithPush(player2, player1, -speed, 0);
                 }
-                
+        
                 if (rightPressed) {
                     moveWithPush(player2, player1, speed, 0);
                 }
-                
+        
                 checkTileStep(player1);
                 checkTileStep(player2);
+        
                 checkGameOver();
-
+        
                 repaint();
-                
-                try {
-                    Thread.sleep(16);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
+        
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         });
 
         gameThread.start();
