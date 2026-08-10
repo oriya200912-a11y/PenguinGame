@@ -1,64 +1,53 @@
 import java.awt.*;
+import javax.swing.*;
 
 public class Penguin {
 
     private int x;
     private int y;
-    private Color color;
 
     private final int SIZE = 40;
-    private final int SPEED =2 ;
+    private final int SPEED = 2;
 
-    public Penguin(int x, int y, Color color) {
+    private Image image;
+
+    public Penguin(int x, int y, String imagePath) {
         this.x = x;
         this.y = y;
-        this.color = color;
+
+        ImageIcon icon = new ImageIcon(imagePath);
+        image = icon.getImage();
     }
 
-    public void moveUp(int top) {
-        if (y - SPEED >= top) {
-            y -= SPEED;
-        }
-    }
-
-    public void moveDown(int bottom) {
-        if (y + SIZE + SPEED <= bottom) {
-            y += SPEED;
-        }
-    }
-
-    public void moveLeft(int left) {
-        if (x - SPEED >= left) {
-            x -= SPEED;
-        }
-    }
-
-    public void moveRight(int right) {
-        if (x + SIZE + SPEED <= right) {
-            x += SPEED;
-        }
-    }
-
-    public void draw(Graphics g) {
-        g.setColor(color);
-        g.fillOval(x, y, SIZE, SIZE);
-    }
     public int getX() {
         return x;
     }
-    
+
     public int getY() {
         return y;
     }
-    
+
     public int getSize() {
         return SIZE;
     }
+
     public int getSpeed() {
         return SPEED;
     }
+
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    public void draw(Graphics g) {
+        g.drawImage(
+                image,
+                x,
+                y,
+                SIZE,
+                SIZE,
+                null
+        );
     }
 }
