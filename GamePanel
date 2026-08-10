@@ -10,7 +10,11 @@ public class GamePanel extends JPanel {
     private Penguin player2;
 
     public GamePanel() {
+
         setBackground(Color.CYAN);
+
+        player1 = new Penguin(0, 0, Color.RED);
+        player2 = new Penguin(7, 9, Color.GREEN);
     }
 
     @Override
