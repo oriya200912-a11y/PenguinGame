@@ -332,6 +332,42 @@ public class GamePanel extends JPanel {
             finishRound(1);
         }
     }
+    private void finishRound(int winner) {
+    
+        roundOver = true;
+    
+        String message;
+    
+        if (winner == 1) {
+    
+            player1Score++;
+            message = "Player 1 wins round " + currentRound + "!";
+    
+        } else if (winner == 2) {
+    
+            player2Score++;
+            message = "Player 2 wins round " + currentRound + "!";
+    
+        } else {
+    
+            message = "Round " + currentRound + " is a draw!";
+        }
+    
+        message += "\n\nScore:"
+                + "\nPlayer 1: " + player1Score
+                + "\nPlayer 2: " + player2Score;
+    
+        JOptionPane.showMessageDialog(this, message);
+    
+        if (currentRound < MAX_ROUNDS) {
+    
+            startNextRound();
+    
+        } else {
+    
+            finishMatch();
+        }
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
