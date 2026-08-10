@@ -241,11 +241,7 @@ public class GamePanel extends JPanel {
                 int x = col * TILE_SIZE + BOARD_X;
                 int y = row * TILE_SIZE + BOARD_Y;
 
-                g.setColor(Color.WHITE);
-                g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
-
-                g.setColor(Color.BLUE);
-                g.drawRect(x, y, TILE_SIZE, TILE_SIZE);
+                tiles[row][col].draw(g, x, y, TILE_SIZE);
             }
         }
 
