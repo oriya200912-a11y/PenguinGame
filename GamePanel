@@ -407,6 +407,31 @@ public class GamePanel extends JPanel {
     
         requestFocusInWindow();
     }
+    private void finishMatch() {
+    
+        gameRunning = false;
+    
+        String message;
+    
+        if (player1Score > player2Score) {
+    
+            message = "PLAYER 1 WINS THE GAME!";
+    
+        } else if (player2Score > player1Score) {
+    
+            message = "PLAYER 2 WINS THE GAME!";
+    
+        } else {
+    
+            message = "THE GAME ENDS IN A DRAW!";
+        }
+    
+        message += "\n\nFinal Score:"
+                + "\nPlayer 1: " + player1Score
+                + "\nPlayer 2: " + player2Score;
+    
+        JOptionPane.showMessageDialog(this, message);
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
