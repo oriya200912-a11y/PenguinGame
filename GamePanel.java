@@ -39,7 +39,11 @@ public class GamePanel extends JPanel {
     
     private boolean roundOver = false;
 
-    public GamePanel() {
+    private JFrame window;
+
+    public GamePanel(JFrame window) {
+    
+        this.window = window;
 
         setBackground(Color.CYAN);
         tiles = new IceTile[ROWS][COLS];
