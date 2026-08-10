@@ -54,4 +54,8 @@ public class Penguin {
     public int getSize() {
         return SIZE;
     }
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
