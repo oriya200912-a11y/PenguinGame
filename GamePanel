@@ -80,7 +80,7 @@ public class GamePanel extends JPanel {
             }
         }
     
-        player1.draw(g, TILE_SIZE, 100, 40);
-        player2.draw(g, TILE_SIZE, 100, 40);
+        player1.draw(g);
+        player2.draw(g);
     }
 }
