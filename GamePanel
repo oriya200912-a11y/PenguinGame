@@ -285,7 +285,7 @@ public class GamePanel extends JPanel {
     
         timer.start();
     }
-    private void checkGameOver() {
+       private void checkGameOver() {
     
         int row1 = player1.getCurrentRow();
         int col1 = player1.getCurrentCol();
@@ -293,23 +293,41 @@ public class GamePanel extends JPanel {
         int row2 = player2.getCurrentRow();
         int col2 = player2.getCurrentCol();
     
+        boolean player1InWater = false;
+        boolean player2InWater = false;
+    
         if (row1 >= 0 && row1 < ROWS &&
             col1 >= 0 && col1 < COLS) {
     
-            if (tiles[row1][col1].getState() == IceTile.WATER) {
-                gameRunning = false;
-                JOptionPane.showMessageDialog(this, "Player 2 wins!");
-                return;
-            }
+            player1InWater =
+                    tiles[row1][col1].getState() == IceTile.WATER;
         }
     
         if (row2 >= 0 && row2 < ROWS &&
             col2 >= 0 && col2 < COLS) {
     
-            if (tiles[row2][col2].getState() == IceTile.WATER) {
-                gameRunning = false;
-                JOptionPane.showMessageDialog(this, "Player 1 wins!");
-            }
+            player2InWater =
+                    tiles[row2][col2].getState() == IceTile.WATER;
+        }
+    
+        // שניהם נפלו באותו זמן
+        if (player1InWater && player2InWater) {
+            gameRunning = false;
+            JOptionPane.showMessageDialog(this, "It's a draw!");
+            return;
+        }
+    
+        // רק שחקן 1 נפל
+        if (player1InWater) {
+            gameRunning = false;
+            JOptionPane.showMessageDialog(this, "Player 2 wins!");
+            return;
+        }
+    
+        // רק שחקן 2 נפל
+        if (player2InWater) {
+            gameRunning = false;
+            JOptionPane.showMessageDialog(this, "Player 1 wins!");
         }
     }
     @Override
