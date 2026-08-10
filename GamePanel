@@ -1,85 +1,190 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel {
 
     private final int ROWS = 8;
     private final int COLS = 10;
     private final int TILE_SIZE = 60;
+
+    private final int BOARD_X = 100;
+    private final int BOARD_Y = 40;
+
+    private final int BOARD_WIDTH = COLS * TILE_SIZE;
+    private final int BOARD_HEIGHT = ROWS * TILE_SIZE;
+
     private Penguin player1;
     private Penguin player2;
+
+    // מקשים של שחקן 1
+    private boolean wPressed = false;
+    private boolean sPressed = false;
+    private boolean aPressed = false;
+    private boolean dPressed = false;
+
+    // מקשים של שחקן 2
+    private boolean upPressed = false;
+    private boolean downPressed = false;
+    private boolean leftPressed = false;
+    private boolean rightPressed = false;
+
+    private boolean gameRunning = true;
 
     public GamePanel() {
 
         setBackground(Color.CYAN);
-    
+
         player1 = new Penguin(110, 50, Color.RED);
         player2 = new Penguin(650, 450, Color.GREEN);
-    
+
         setFocusable(true);
-    
-        addKeyListener(new java.awt.event.KeyAdapter() {
-    
+
+        addKeyListener(new KeyAdapter() {
+
             @Override
-            public void keyPressed(java.awt.event.KeyEvent e) {
-    
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_W) {
-                    player1.moveUp();
+            public void keyPressed(KeyEvent e) {
+
+                if (e.getKeyCode() == KeyEvent.VK_W) {
+                    wPressed = true;
                 }
-                
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_S) {
-                    player1.moveDown();
+
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    sPressed = true;
                 }
-                
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_A) {
-                    player1.moveLeft();
+
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    aPressed = true;
                 }
-                
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_D) {
-                    player1.moveRight();
+
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    dPressed = true;
                 }
-                
-                
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_UP) {
-                    player2.moveUp();
+
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    upPressed = true;
                 }
-                
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN) {
-                    player2.moveDown();
+
+                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    downPressed = true;
                 }
-                
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_LEFT) {
-                    player2.moveLeft();
+
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    leftPressed = true;
                 }
-                
-                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_RIGHT) {
-                    player2.moveRight();
+
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    rightPressed = true;
                 }
-                
-                repaint();
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+                if (e.getKeyCode() == KeyEvent.VK_W) {
+                    wPressed = false;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    sPressed = false;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    aPressed = false;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    dPressed = false;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    upPressed = false;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    downPressed = false;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    leftPressed = false;
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    rightPressed = false;
+                }
             }
         });
-    
-        requestFocusInWindow();
+
+        Thread gameThread = new Thread(() -> {
+
+            while (gameRunning) {
+
+                // שחקן 1
+                if (wPressed) {
+                    player1.moveUp(BOARD_Y);
+                }
+
+                if (sPressed) {
+                    player1.moveDown(BOARD_Y + BOARD_HEIGHT);
+                }
+
+                if (aPressed) {
+                    player1.moveLeft(BOARD_X);
+                }
+
+                if (dPressed) {
+                    player1.moveRight(BOARD_X + BOARD_WIDTH);
+                }
+
+                // שחקן 2
+                if (upPressed) {
+                    player2.moveUp(BOARD_Y);
+                }
+
+                if (downPressed) {
+                    player2.moveDown(BOARD_Y + BOARD_HEIGHT);
+                }
+
+                if (leftPressed) {
+                    player2.moveLeft(BOARD_X);
+                }
+
+                if (rightPressed) {
+                    player2.moveRight(BOARD_X + BOARD_WIDTH);
+                }
+
+                repaint();
+
+                try {
+                    Thread.sleep(16);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        gameThread.start();
     }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-    
+
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-    
-                int x = col * TILE_SIZE + 100;
-                int y = row * TILE_SIZE + 40;
-    
+
+                int x = col * TILE_SIZE + BOARD_X;
+                int y = row * TILE_SIZE + BOARD_Y;
+
                 g.setColor(Color.WHITE);
                 g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
-    
+
                 g.setColor(Color.BLUE);
                 g.drawRect(x, y, TILE_SIZE, TILE_SIZE);
             }
         }
-    
+
         player1.draw(g);
         player2.draw(g);
     }
