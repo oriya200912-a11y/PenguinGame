@@ -237,7 +237,7 @@ public class GamePanel extends JPanel {
         }
     }
     private void checkTileStep(Penguin player) {
-    
+
         boolean enteredNewTile =
                 player.updateTilePosition(BOARD_X, BOARD_Y, TILE_SIZE);
     
@@ -247,19 +247,43 @@ public class GamePanel extends JPanel {
             int col = player.getCurrentCol();
     
             if (row >= 0 && row < ROWS &&
-                col >= 0 && col < COLS) {
+                    col >= 0 && col < COLS) {
     
-                IceTile tile = tiles[row][col];
-    
-                Timer timer = new Timer(1000, e -> {
-                    tile.breakIce();
-                    repaint();
-                });
-    
-                timer.setRepeats(false);
-                timer.start();
+                startIceTimer(player, row, col);
             }
         }
+    }
+    private void startIceTimer(Penguin player, int row, int col) {
+    
+        IceTile tile = tiles[row][col];
+    
+        Timer timer = new Timer(2000, null);
+    
+        timer.addActionListener(e -> {
+    
+            // משנים את מצב הקרח
+            tile.breakIce();
+    
+            repaint();
+    
+            // אם הקרח כבר הפך למים - מסיימים את הטיימר
+            if (tile.getState() == IceTile.WATER) {
+                timer.stop();
+                return;
+            }
+    
+            // בודקים אם הפינגווין עדיין עומד על אותה משבצת
+            boolean stillOnSameTile =
+                    player.getCurrentRow() == row &&
+                    player.getCurrentCol() == col;
+    
+            // אם הוא כבר לא שם - אין צורך בשבירה נוספת
+            if (!stillOnSameTile) {
+                timer.stop();
+            }
+        });
+    
+        timer.start();
     }
     private void checkGameOver() {
     
