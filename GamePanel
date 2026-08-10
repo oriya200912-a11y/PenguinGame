@@ -35,6 +35,14 @@ public class GamePanel extends JPanel {
     public GamePanel() {
 
         setBackground(Color.CYAN);
+        tiles = new IceTile[ROWS][COLS];
+        
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+        
+                tiles[row][col] = new IceTile();
+            }
+        }
 
         player1 = new Penguin(110, 50, "player1.png");
         player2 = new Penguin(650, 450, "player2.png");
