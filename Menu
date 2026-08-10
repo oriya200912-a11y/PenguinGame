@@ -39,6 +39,7 @@ public class Menu extends JPanel {
 
             window.revalidate();
             window.repaint();
+            gamePanel.requestFocusInWindow();
         });
 
         add(Box.createVerticalGlue());
