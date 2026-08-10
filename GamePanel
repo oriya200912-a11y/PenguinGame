@@ -6,6 +6,8 @@ public class GamePanel extends JPanel {
     private final int ROWS = 8;
     private final int COLS = 10;
     private final int TILE_SIZE = 60;
+    private Penguin player1;
+    private Penguin player2;
 
     public GamePanel() {
         setBackground(Color.CYAN);
