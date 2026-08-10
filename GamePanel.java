@@ -17,6 +17,7 @@ public class GamePanel extends JPanel {
 
     private Penguin player1;
     private Penguin player2;
+    private Image backgroundImage;
     private IceTile[][] tiles;
 
     // מקשים של שחקן 1
