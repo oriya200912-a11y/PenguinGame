@@ -170,6 +170,7 @@ public class GamePanel extends JPanel {
                 
                 checkTileStep(player1);
                 checkTileStep(player2);
+                checkGameOver();
 
                 repaint();
                 
@@ -257,6 +258,33 @@ public class GamePanel extends JPanel {
     
                 timer.setRepeats(false);
                 timer.start();
+            }
+        }
+    }
+    private void checkGameOver() {
+    
+        int row1 = player1.getCurrentRow();
+        int col1 = player1.getCurrentCol();
+    
+        int row2 = player2.getCurrentRow();
+        int col2 = player2.getCurrentCol();
+    
+        if (row1 >= 0 && row1 < ROWS &&
+            col1 >= 0 && col1 < COLS) {
+    
+            if (tiles[row1][col1].getState() == IceTile.WATER) {
+                gameRunning = false;
+                JOptionPane.showMessageDialog(this, "Player 2 wins!");
+                return;
+            }
+        }
+    
+        if (row2 >= 0 && row2 < ROWS &&
+            col2 >= 0 && col2 < COLS) {
+    
+            if (tiles[row2][col2].getState() == IceTile.WATER) {
+                gameRunning = false;
+                JOptionPane.showMessageDialog(this, "Player 1 wins!");
             }
         }
     }
