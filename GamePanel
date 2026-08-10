@@ -26,35 +26,36 @@ public class GamePanel extends JPanel {
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_W) {
                     player1.moveUp();
                 }
-    
+                
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_S) {
-                    player1.moveDown(ROWS);
+                    player1.moveDown();
                 }
-    
+                
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_A) {
                     player1.moveLeft();
                 }
-    
+                
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_D) {
-                    player1.moveRight(COLS);
+                    player1.moveRight();
                 }
-    
+                
+                
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_UP) {
                     player2.moveUp();
                 }
-    
+                
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN) {
-                    player2.moveDown(ROWS);
+                    player2.moveDown();
                 }
-    
+                
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_LEFT) {
                     player2.moveLeft();
                 }
-    
+                
                 if (e.getKeyCode() == java.awt.event.KeyEvent.VK_RIGHT) {
-                    player2.moveRight(COLS);
+                    player2.moveRight();
                 }
-    
+                
                 repaint();
             }
         });
