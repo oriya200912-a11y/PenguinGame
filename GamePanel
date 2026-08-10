@@ -177,8 +177,11 @@ public class GamePanel extends JPanel {
                     moveWithPush(player2, player1, speed, 0);
                 }
                 
+                updateIceForPlayer(player1, true);
+                updateIceForPlayer(player2, false);
+                
                 repaint();
-            
+                
                 try {
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
