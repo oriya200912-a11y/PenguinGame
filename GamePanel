@@ -186,6 +186,13 @@ public class GamePanel extends JPanel {
                 && player1.getY() < player2.getY() + player2.getSize()
                 && player1.getY() + player1.getSize() > player2.getY();
     }
+    private boolean isOutsideBoard(Penguin player) {
+    
+        return player.getX() < BOARD_X
+                || player.getY() < BOARD_Y
+                || player.getX() + player.getSize() > BOARD_X + BOARD_WIDTH
+                || player.getY() + player.getSize() > BOARD_Y + BOARD_HEIGHT;
+    }
     private void moveWithPush(Penguin mover, Penguin other, int dx, int dy) {
 
         int oldMoverX = mover.getX();
