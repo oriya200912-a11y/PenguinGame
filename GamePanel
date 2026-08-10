@@ -254,6 +254,32 @@ public class GamePanel extends JPanel {
     
         return (centerX - BOARD_X) / TILE_SIZE;
     }
+    private void updateIceForPlayer(Penguin player, boolean playerOne) {
+    
+        int currentRow = getPlayerRow(player);
+        int currentCol = getPlayerCol(player);
+    
+        if (playerOne) {
+    
+            if (currentRow != player1LastRow || currentCol != player1LastCol) {
+    
+                tiles[player1LastRow][player1LastCol].breakIce();
+    
+                player1LastRow = currentRow;
+                player1LastCol = currentCol;
+            }
+    
+        } else {
+    
+            if (currentRow != player2LastRow || currentCol != player2LastCol) {
+    
+                tiles[player2LastRow][player2LastCol].breakIce();
+    
+                player2LastRow = currentRow;
+                player2LastCol = currentCol;
+            }
+        }
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
