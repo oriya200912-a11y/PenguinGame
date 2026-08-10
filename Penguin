@@ -7,7 +7,7 @@ public class Penguin {
     private Color color;
 
     private final int SIZE = 40;
-    private final int SPEED = 5;
+    private final int SPEED = 1;
 
     public Penguin(int x, int y, Color color) {
         this.x = x;
@@ -42,5 +42,16 @@ public class Penguin {
     public void draw(Graphics g) {
         g.setColor(color);
         g.fillOval(x, y, SIZE, SIZE);
+    }
+    public int getX() {
+        return x;
+    }
+    
+    public int getY() {
+        return y;
+    }
+    
+    public int getSize() {
+        return SIZE;
     }
 }
