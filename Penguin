@@ -7,7 +7,7 @@ public class Penguin {
     private Color color;
 
     private final int SIZE = 40;
-    private final int SPEED = 1;
+    private final int SPEED = ;
 
     public Penguin(int x, int y, Color color) {
         this.x = x;
@@ -53,6 +53,9 @@ public class Penguin {
     
     public int getSize() {
         return SIZE;
+    }
+    public int getSpeed() {
+        return SPEED;
     }
     public void setPosition(int x, int y) {
         this.x = x;
