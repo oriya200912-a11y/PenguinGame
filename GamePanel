@@ -47,11 +47,7 @@ public class GamePanel extends JPanel {
 
         player1 = new Penguin(110, 50, "player1.png");
         player2 = new Penguin(650, 450, "player2.png");
-        player1LastRow = getPlayerRow(player1);
-        player1LastCol = getPlayerCol(player1);
         
-        player2LastRow = getPlayerRow(player2);
-        player2LastCol = getPlayerCol(player2);
         setFocusable(true);
 
         addKeyListener(new KeyAdapter() {
@@ -172,9 +168,6 @@ public class GamePanel extends JPanel {
                     moveWithPush(player2, player1, speed, 0);
                 }
                 
-                updateIceForPlayer(player1, true);
-                updateIceForPlayer(player2, false);
-
                 checkTileStep(player1);
                 checkTileStep(player2);
 
