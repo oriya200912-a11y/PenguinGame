@@ -12,30 +12,53 @@ public class GamePanel extends JPanel {
     public GamePanel() {
 
         setBackground(Color.CYAN);
-
+    
         player1 = new Penguin(0, 0, Color.RED);
         player2 = new Penguin(7, 9, Color.GREEN);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLS; col++) {
-
-                int x = col * TILE_SIZE + 100;
-                int y = row * TILE_SIZE + 40;
     
-                g.setColor(Color.WHITE);
-                g.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+        setFocusable(true);
     
-                g.setColor(Color.BLUE);
-                g.drawRect(x, y, TILE_SIZE, TILE_SIZE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+    
+            @Override
+            public void keyPressed(java.awt.event.KeyEvent e) {
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_W) {
+                    player1.moveUp();
+                }
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_S) {
+                    player1.moveDown(ROWS);
+                }
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_A) {
+                    player1.moveLeft();
+                }
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_D) {
+                    player1.moveRight(COLS);
+                }
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_UP) {
+                    player2.moveUp();
+                }
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_DOWN) {
+                    player2.moveDown(ROWS);
+                }
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_LEFT) {
+                    player2.moveLeft();
+                }
+    
+                if (e.getKeyCode() == java.awt.event.KeyEvent.VK_RIGHT) {
+                    player2.moveRight(COLS);
+                }
+    
+                repaint();
             }
-        }
-
-        player1.draw(g, TILE_SIZE, 100, 40);
-        player2.draw(g, TILE_SIZE, 100, 40);
+        });
+    
+        requestFocusInWindow();
     }
 }
