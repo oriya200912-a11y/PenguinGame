@@ -10,7 +10,7 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);
 
-        Menu menu = new Menu();
+        Menu menu = new Menu(window);
         window.add(menu);
 
         window.setVisible(true);
