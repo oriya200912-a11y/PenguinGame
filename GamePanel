@@ -368,6 +368,45 @@ public class GamePanel extends JPanel {
             finishMatch();
         }
     }
+    private void startNextRound() {
+    
+        currentRound++;
+    
+        // יוצרים מחדש את כל הקרח
+        tiles = new IceTile[ROWS][COLS];
+    
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+    
+                tiles[row][col] = new IceTile();
+            }
+        }
+    
+        // מחזירים את הפינגווינים לנקודות ההתחלה
+        player1.setPosition(110, 50);
+        player2.setPosition(650, 450);
+    
+        // מאפסים את מיקום המשבצת השמור שלהם
+        player1.resetTilePosition();
+        player2.resetTilePosition();
+    
+        // מאפסים מקשים
+        wPressed = false;
+        sPressed = false;
+        aPressed = false;
+        dPressed = false;
+    
+        upPressed = false;
+        downPressed = false;
+        leftPressed = false;
+        rightPressed = false;
+    
+        roundOver = false;
+    
+        repaint();
+    
+        requestFocusInWindow();
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
