@@ -84,4 +84,8 @@ public class Penguin {
     public int getCurrentCol() {
         return currentCol;
     }
+    public void resetTilePosition() {
+        currentRow = -1;
+        currentCol = -1;
+    }
 }
