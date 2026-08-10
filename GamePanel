@@ -32,9 +32,7 @@ public class GamePanel extends JPanel {
     private boolean rightPressed = false;
 
     private boolean gameRunning = true;
-    private final int MAX_ROUNDS = 3;
-    
-    private int currentRound = 1;
+    private final int WINNING_SCORE = 3;
     
     private int player1Score = 0;
     private int player2Score = 0;
