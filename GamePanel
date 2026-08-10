@@ -120,42 +120,55 @@ public class GamePanel extends JPanel {
 
             while (gameRunning) {
 
-                // שחקן 1
+                int oldX1 = player1.getX();
+                int oldY1 = player1.getY();
+            
                 if (wPressed) {
                     player1.moveUp(BOARD_Y);
                 }
-
+            
                 if (sPressed) {
                     player1.moveDown(BOARD_Y + BOARD_HEIGHT);
                 }
-
+            
                 if (aPressed) {
                     player1.moveLeft(BOARD_X);
                 }
-
+            
                 if (dPressed) {
                     player1.moveRight(BOARD_X + BOARD_WIDTH);
                 }
-
-                // שחקן 2
+            
+                if (arePlayersColliding()) {
+                    player1.setPosition(oldX1, oldY1);
+                }
+            
+            
+                int oldX2 = player2.getX();
+                int oldY2 = player2.getY();
+            
                 if (upPressed) {
                     player2.moveUp(BOARD_Y);
                 }
-
+            
                 if (downPressed) {
                     player2.moveDown(BOARD_Y + BOARD_HEIGHT);
                 }
-
+            
                 if (leftPressed) {
                     player2.moveLeft(BOARD_X);
                 }
-
+            
                 if (rightPressed) {
                     player2.moveRight(BOARD_X + BOARD_WIDTH);
                 }
-
+            
+                if (arePlayersColliding()) {
+                    player2.setPosition(oldX2, oldY2);
+                }
+            
                 repaint();
-
+            
                 try {
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
