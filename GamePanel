@@ -241,6 +241,19 @@ public class GamePanel extends JPanel {
             }
         }
     }
+    private int getPlayerRow(Penguin player) {
+    
+        int centerY = player.getCenterY();
+    
+        return (centerY - BOARD_Y) / TILE_SIZE;
+    }
+    
+    private int getPlayerCol(Penguin player) {
+    
+        int centerX = player.getCenterX();
+    
+        return (centerX - BOARD_X) / TILE_SIZE;
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
