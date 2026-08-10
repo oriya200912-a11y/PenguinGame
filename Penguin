@@ -50,4 +50,11 @@ public class Penguin {
                 null
         );
     }
+    public int getCenterX() {
+        return x + SIZE / 2;
+    }
+    
+    public int getCenterY() {
+        return y + SIZE / 2;
+    }
 }
