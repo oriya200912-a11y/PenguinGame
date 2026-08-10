@@ -45,8 +45,9 @@ public class GamePanel extends JPanel {
     public GamePanel(JFrame window) {
     
         this.window = window;
-
-        setBackground(Color.CYAN);
+        ImageIcon backgroundIcon = new ImageIcon("background.png");
+        backgroundImage = backgroundIcon.getImage();
+        
         tiles = new IceTile[ROWS][COLS];
         
         for (int row = 0; row < ROWS; row++) {
@@ -447,38 +448,56 @@ public class GamePanel extends JPanel {
         window.repaint();
     }
     @Override
-
     protected void paintComponent(Graphics g) {
+    
         super.paintComponent(g);
     
-        // 👇 תוסיפי כאן
+        // ציור תמונת הרקע על כל החלון
+        g.drawImage(
+                backgroundImage,
+                0,
+                0,
+                getWidth(),
+                getHeight(),
+                this
+        );
+    
+        // הצגת הניקוד
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 18));
+    
         g.drawString(
                 "First to 3 wins!",
                 10,
                 25
         );
-            
+    
         g.drawString(
-                "Player 1: " + player1Score +
-                "    Player 2: " + player2Score,
+                "Player 1: "
+                        + player1Score
+                        + "    Player 2: "
+                        + player2Score,
                 280,
                 25
         );
     
-        // ציור הקרח
+        // ציור לוח הקרח
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
     
                 int x = col * TILE_SIZE + BOARD_X;
                 int y = row * TILE_SIZE + BOARD_Y;
     
-                tiles[row][col].draw(g, x, y, TILE_SIZE);
+                tiles[row][col].draw(
+                        g,
+                        x,
+                        y,
+                        TILE_SIZE
+                );
             }
         }
     
-        // ציור השחקנים
+        // ציור הפינגווינים מעל הקרח
         player1.draw(g);
         player2.draw(g);
     }
