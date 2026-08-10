@@ -33,7 +33,7 @@ public class Menu extends JPanel {
         // ורק אחר כך מוסיפים לו פעולה
         startButton.addActionListener(e -> {
 
-            GamePanel gamePanel = new GamePanel();
+            GamePanel gamePanel = new GamePanel(window);
 
             window.setContentPane(gamePanel);
 
