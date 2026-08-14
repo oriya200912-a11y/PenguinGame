@@ -3,16 +3,6 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
 
-    private final int ROWS = 8;
-    private final int COLS = 10;
-    private final int TILE_SIZE = 60;
-
-    private final int BOARD_X = 100;
-    private final int BOARD_Y = 40;
-
-    private final int BOARD_WIDTH = COLS * TILE_SIZE;
-    private final int BOARD_HEIGHT = ROWS * TILE_SIZE;
-
     private Penguin player1;
     private Penguin player2;
     private Image backgroundImage;
