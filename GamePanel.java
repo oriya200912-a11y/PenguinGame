@@ -186,22 +186,21 @@ private boolean isOutsideBoard(Penguin player) {
 
     // בודקת אם הפינגווין נכנס לקוביית קרח חדשה
     private void checkTileStep(Penguin player) {
-
+    
         boolean enteredNewTile =
                 player.updateTilePosition(
                         gameBoard.getBoardX(),
                         gameBoard.getBoardY(),
                         gameBoard.getTileSize()
                 );
-
+    
         if (enteredNewTile) {
-
+    
             int row = player.getCurrentRow();
             int col = player.getCurrentCol();
-
-            if (row >= 0 && row < ROWS &&
-                    col >= 0 && col < COLS) {
-
+    
+            if (gameBoard.isValidTile(row, col)) {
+    
                 startIceTimer(
                         player,
                         row,
@@ -210,7 +209,6 @@ private boolean isOutsideBoard(Penguin player) {
             }
         }
     }
-
 
     // מפעילה את מנגנון שבירת הקרח: קרח רגיל -> סדוק -> מים
     private void startIceTimer(
