@@ -198,6 +198,7 @@ public class GamePanel extends JPanel {
 
         gameThread.start();
     }
+    // בודקת אם שני הפינגווינים מתנגשים אחד בשני
     private boolean arePlayersColliding() {
 
         return player1.getX() < player2.getX() + player2.getSize()
@@ -205,6 +206,7 @@ public class GamePanel extends JPanel {
                 && player1.getY() < player2.getY() + player2.getSize()
                 && player1.getY() + player1.getSize() > player2.getY();
     }
+    // בודקת אם הפינגווין יצא מגבולות לוח הקרח
     private boolean isOutsideBoard(Penguin player) {
     
         return player.getX() < BOARD_X
@@ -212,6 +214,7 @@ public class GamePanel extends JPanel {
                 || player.getX() + player.getSize() > BOARD_X + BOARD_WIDTH
                 || player.getY() + player.getSize() > BOARD_Y + BOARD_HEIGHT;
     }
+    // מזיזה פינגווין, מטפלת בהתנגשות ודוחפת את הפינגווין השני
     private void moveWithPush(Penguin mover, Penguin other, int dx, int dy) {
 
         int oldMoverX = mover.getX();
@@ -250,6 +253,7 @@ public class GamePanel extends JPanel {
             }
         }
     }
+    // בודקת אם הפינגווין נכנס לקוביית קרח חדשה
     private void checkTileStep(Penguin player) {
 
         boolean enteredNewTile =
@@ -267,6 +271,7 @@ public class GamePanel extends JPanel {
             }
         }
     }
+    // מפעילה את מנגנון שבירת הקרח: קרח רגיל -> סדוק -> מים
     private void startIceTimer(Penguin player, int row, int col) {
     
         IceTile tile = tiles[row][col];
@@ -299,6 +304,7 @@ public class GamePanel extends JPanel {
     
         timer.start();
     }
+    // בודקת אם אחד הפינגווינים נמצא על מים ומחליטה מי ניצח בסיבוב
     private void checkGameOver() {
     
         int row1 = player1.getCurrentRow();
@@ -341,6 +347,7 @@ public class GamePanel extends JPanel {
             finishRound(1);
         }
     }
+    // מעדכנת את הניקוד ומחליטה אם להתחיל סיבוב חדש או לסיים את המשחק
     private void finishRound(int winner) {
     
         roundOver = true;
@@ -384,6 +391,7 @@ public class GamePanel extends JPanel {
             startNextRound();
         }
     }
+    // מאפסת את הלוח ומחזירה את השחקנים לנקודות ההתחלה לקראת סיבוב חדש
     private void startNextRound() {
     
         // יוצרים מחדש את כל הקרח
@@ -421,6 +429,7 @@ public class GamePanel extends JPanel {
     
         requestFocusInWindow();
     }
+    // מסיימת את המשחק, עוצרת את המוזיקה ועוברת למסך הסיום
     private void finishMatch() {
 
         gameRunning = false;
@@ -452,6 +461,7 @@ public class GamePanel extends JPanel {
     
         window.repaint();
     }
+    // מציירת על המסך את הרקע, הניקוד, הקרח והפינגווינים
     @Override
     protected void paintComponent(Graphics g) {
     
