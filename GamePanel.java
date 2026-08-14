@@ -332,45 +332,13 @@ private boolean isOutsideBoard(Penguin player) {
     }
 
 
-    // מאפסת את הלוח ומחזירה את השחקנים לנקודות ההתחלה לקראת סיבוב חדש
-    private void startNextRound() {
-
-        // יוצרים מחדש את כל הקרח
-        tiles = new IceTile[ROWS][COLS];
-
-        for (int row = 0; row < ROWS; row++) {
-
-            for (int col = 0; col < COLS; col++) {
-
-                tiles[row][col] = new IceTile();
-            }
+    tiles = new IceTile[ROWS][COLS];
+    
+    for (int row = 0; row < ROWS; row++) {
+        for (int col = 0; col < COLS; col++) {
+            tiles[row][col] = new IceTile();
         }
-
-        // מחזירים את הפינגווינים לנקודות ההתחלה
-        player1.setPosition(
-                110,
-                50
-        );
-
-        player2.setPosition(
-                650,
-                450
-        );
-
-        // מאפסים את מיקום המשבצת השמור שלהם
-        player1.resetTilePosition();
-        player2.resetTilePosition();
-
-        // מאפסים את כל המקשים
-        inputHandler.reset();
-
-        roundOver = false;
-
-        repaint();
-
-        requestFocusInWindow();
     }
-
 
     // מסיימת את המשחק, עוצרת את המוזיקה ועוברת למסך הסיום
     private void finishMatch() {
