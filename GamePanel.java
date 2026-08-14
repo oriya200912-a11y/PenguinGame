@@ -327,16 +327,8 @@ public class GamePanel extends JPanel {
         player1.resetTilePosition();
         player2.resetTilePosition();
     
-        // מאפסים מקשים
-        wPressed = false;
-        sPressed = false;
-        aPressed = false;
-        dPressed = false;
-    
-        upPressed = false;
-        downPressed = false;
-        leftPressed = false;
-        rightPressed = false;
+      // מאפסים מקשים
+        inputHandler.reset();
     
         roundOver = false;
     
