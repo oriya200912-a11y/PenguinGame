@@ -56,61 +56,63 @@ public class GamePanel extends JPanel {
 
         inputHandler = new InputHandler();
         addKeyListener(inputHandler);
-
-       while (gameRunning) {
         
-            if (!roundOver) {
+        Thread gameThread = new Thread(() -> {
         
-                int speed = player1.getSpeed();
+            while (gameRunning) {
         
-                if (inputHandler.isWPressed()) {
-                    moveWithPush(player1, player2, 0, -speed);
-                }
-                
-                if (inputHandler.isSPressed()) {
-                    moveWithPush(player1, player2, 0, speed);
-                }
-                
-                if (inputHandler.isAPressed()) {
-                    moveWithPush(player1, player2, -speed, 0);
-                }
-                
-                if (inputHandler.isDPressed()) {
-                    moveWithPush(player1, player2, speed, 0);
-                }
-                
-                if (inputHandler.isUpPressed()) {
-                    moveWithPush(player2, player1, 0, -speed);
-                }
-                
-                if (inputHandler.isDownPressed()) {
-                    moveWithPush(player2, player1, 0, speed);
-                }
-                
-                if (inputHandler.isLeftPressed()) {
-                    moveWithPush(player2, player1, -speed, 0);
-                }
-                
-                if (inputHandler.isRightPressed()) {
-                    moveWithPush(player2, player1, speed, 0);
+                if (!roundOver) {
+        
+                    int speed = player1.getSpeed();
+        
+                    if (inputHandler.isWPressed()) {
+                        moveWithPush(player1, player2, 0, -speed);
+                    }
+        
+                    if (inputHandler.isSPressed()) {
+                        moveWithPush(player1, player2, 0, speed);
+                    }
+        
+                    if (inputHandler.isAPressed()) {
+                        moveWithPush(player1, player2, -speed, 0);
+                    }
+        
+                    if (inputHandler.isDPressed()) {
+                        moveWithPush(player1, player2, speed, 0);
+                    }
+        
+                    if (inputHandler.isUpPressed()) {
+                        moveWithPush(player2, player1, 0, -speed);
+                    }
+        
+                    if (inputHandler.isDownPressed()) {
+                        moveWithPush(player2, player1, 0, speed);
+                    }
+        
+                    if (inputHandler.isLeftPressed()) {
+                        moveWithPush(player2, player1, -speed, 0);
+                    }
+        
+                    if (inputHandler.isRightPressed()) {
+                        moveWithPush(player2, player1, speed, 0);
+                    }
+        
+                    checkTileStep(player1);
+                    checkTileStep(player2);
+        
+                    checkGameOver();
+        
+                    repaint();
                 }
         
-                checkTileStep(player1);
-                checkTileStep(player2);
-        
-                checkGameOver();
-        
-                repaint();
+                try {
+                    Thread.sleep(16);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        
-            try {
-                Thread.sleep(16);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         });
-
+        
         gameThread.start();
     }
     // בודקת אם שני הפינגווינים מתנגשים אחד בשני
