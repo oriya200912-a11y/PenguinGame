@@ -189,9 +189,9 @@ private boolean isOutsideBoard(Penguin player) {
 
         boolean enteredNewTile =
                 player.updateTilePosition(
-                        BOARD_X,
-                        BOARD_Y,
-                        TILE_SIZE
+                        gameBoard.getBoardX(),
+                        gameBoard.getBoardY(),
+                        gameBoard.getTileSize()
                 );
 
         if (enteredNewTile) {
