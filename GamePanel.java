@@ -30,15 +30,8 @@ public class GamePanel extends JPanel {
         ImageIcon backgroundIcon = new ImageIcon("background.png");
         backgroundImage = backgroundIcon.getImage();
 
-        tiles = new IceTile[ROWS][COLS];
-
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLS; col++) {
-
-                tiles[row][col] = new IceTile();
-            }
-        }
-
+        gameBoard = new GameBoard();
+        
         player1 = new Penguin(110, 50, "player1.png");
         player2 = new Penguin(650, 450, "player2.png");
 
