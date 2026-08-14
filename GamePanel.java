@@ -28,6 +28,7 @@ public class GamePanel extends JPanel {
 
     private JFrame window;
     private MusicPlayer musicPlayer;
+    private InputHandler inputHandler;
 
     public GamePanel(JFrame window) {
     
