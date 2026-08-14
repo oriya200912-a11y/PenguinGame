@@ -18,18 +18,6 @@ public class GamePanel extends JPanel {
     private Image backgroundImage;
     private IceTile[][] tiles;
 
-    // מקשים של שחקן 1
-    private boolean wPressed = false;
-    private boolean sPressed = false;
-    private boolean aPressed = false;
-    private boolean dPressed = false;
-
-    // מקשים של שחקן 2
-    private boolean upPressed = false;
-    private boolean downPressed = false;
-    private boolean leftPressed = false;
-    private boolean rightPressed = false;
-
     private boolean gameRunning = true;
     private final int WINNING_SCORE = 3;
     
