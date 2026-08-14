@@ -41,10 +41,15 @@ public class GamePanel extends JPanel {
     private boolean roundOver = false;
 
     private JFrame window;
+    private MusicPlayer musicPlayer;
 
     public GamePanel(JFrame window) {
     
         this.window = window;
+        
+        musicPlayer = new MusicPlayer();
+        musicPlayer.play("music.wav");
+        
         ImageIcon backgroundIcon = new ImageIcon("background.png");
         backgroundImage = backgroundIcon.getImage();
         
