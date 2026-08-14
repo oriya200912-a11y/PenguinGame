@@ -20,10 +20,10 @@ public class GamePanel extends JPanel {
 
     private boolean gameRunning = true;
     private final int WINNING_SCORE = 3;
-    
+
     private int player1Score = 0;
     private int player2Score = 0;
-    
+
     private boolean roundOver = false;
 
     private JFrame window;
@@ -31,80 +31,84 @@ public class GamePanel extends JPanel {
     private InputHandler inputHandler;
 
     public GamePanel(JFrame window) {
-    
+
         this.window = window;
-        
+
         musicPlayer = new MusicPlayer();
         musicPlayer.play("music.wav");
-        
+
         ImageIcon backgroundIcon = new ImageIcon("background.png");
         backgroundImage = backgroundIcon.getImage();
-        
+
         tiles = new IceTile[ROWS][COLS];
-        
+
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
-        
+
                 tiles[row][col] = new IceTile();
             }
         }
 
         player1 = new Penguin(110, 50, "player1.png");
         player2 = new Penguin(650, 450, "player2.png");
-        
+
         setFocusable(true);
 
+        // יצירת המחלקה שאחראית על המקשים
         inputHandler = new InputHandler();
         addKeyListener(inputHandler);
-        
+
+        // Thread שמריץ את המשחק
         Thread gameThread = new Thread(() -> {
-        
+
             while (gameRunning) {
-        
+
                 if (!roundOver) {
-        
+
                     int speed = player1.getSpeed();
-        
+
+                    // תנועה של שחקן 1
                     if (inputHandler.isWPressed()) {
                         moveWithPush(player1, player2, 0, -speed);
                     }
-        
+
                     if (inputHandler.isSPressed()) {
                         moveWithPush(player1, player2, 0, speed);
                     }
-        
+
                     if (inputHandler.isAPressed()) {
                         moveWithPush(player1, player2, -speed, 0);
                     }
-        
+
                     if (inputHandler.isDPressed()) {
                         moveWithPush(player1, player2, speed, 0);
                     }
-        
+
+                    // תנועה של שחקן 2
                     if (inputHandler.isUpPressed()) {
                         moveWithPush(player2, player1, 0, -speed);
                     }
-        
+
                     if (inputHandler.isDownPressed()) {
                         moveWithPush(player2, player1, 0, speed);
                     }
-        
+
                     if (inputHandler.isLeftPressed()) {
                         moveWithPush(player2, player1, -speed, 0);
                     }
-        
+
                     if (inputHandler.isRightPressed()) {
                         moveWithPush(player2, player1, speed, 0);
                     }
-        
+
                     checkTileStep(player1);
                     checkTileStep(player2);
-        
+
                     checkGameOver();
-        
+
                     repaint();
                 }
-        
+
                 try {
                     Thread.sleep(16);
                 } catch (InterruptedException e) {
@@ -112,9 +116,11 @@ public class GamePanel extends JPanel {
                 }
             }
         });
-        
+
         gameThread.start();
     }
+
+
     // בודקת אם שני הפינגווינים מתנגשים אחד בשני
     private boolean arePlayersColliding() {
 
@@ -123,259 +129,319 @@ public class GamePanel extends JPanel {
                 && player1.getY() < player2.getY() + player2.getSize()
                 && player1.getY() + player1.getSize() > player2.getY();
     }
+
+
     // בודקת אם הפינגווין יצא מגבולות לוח הקרח
     private boolean isOutsideBoard(Penguin player) {
-    
+
         return player.getX() < BOARD_X
                 || player.getY() < BOARD_Y
                 || player.getX() + player.getSize() > BOARD_X + BOARD_WIDTH
                 || player.getY() + player.getSize() > BOARD_Y + BOARD_HEIGHT;
     }
+
+
     // מזיזה פינגווין, מטפלת בהתנגשות ודוחפת את הפינגווין השני
-    private void moveWithPush(Penguin mover, Penguin other, int dx, int dy) {
+    private void moveWithPush(
+            Penguin mover,
+            Penguin other,
+            int dx,
+            int dy
+    ) {
 
         int oldMoverX = mover.getX();
         int oldMoverY = mover.getY();
-    
+
         int oldOtherX = other.getX();
         int oldOtherY = other.getY();
-    
+
         // מזיזים קודם את השחקן שרוצה לזוז
         mover.setPosition(
                 mover.getX() + dx,
                 mover.getY() + dy
         );
-    
+
         // בודקים שלא יצא מהלוח
         if (isOutsideBoard(mover)) {
-            mover.setPosition(oldMoverX, oldMoverY);
+
+            mover.setPosition(
+                    oldMoverX,
+                    oldMoverY
+            );
+
             return;
         }
-    
+
         // אם הוא התנגש בשחקן השני
         if (arePlayersColliding()) {
-    
+
             // דוחפים את השחקן השני באותו הכיוון
             other.setPosition(
                     other.getX() + dx,
                     other.getY() + dy
             );
-    
+
             // אם השחקן שנדחף יצא מהלוח
             if (isOutsideBoard(other)) {
-    
+
                 // מחזירים את שניהם למקום
-                mover.setPosition(oldMoverX, oldMoverY);
-                other.setPosition(oldOtherX, oldOtherY);
+                mover.setPosition(
+                        oldMoverX,
+                        oldMoverY
+                );
+
+                other.setPosition(
+                        oldOtherX,
+                        oldOtherY
+                );
             }
         }
     }
+
+
     // בודקת אם הפינגווין נכנס לקוביית קרח חדשה
     private void checkTileStep(Penguin player) {
 
         boolean enteredNewTile =
-                player.updateTilePosition(BOARD_X, BOARD_Y, TILE_SIZE);
-    
+                player.updateTilePosition(
+                        BOARD_X,
+                        BOARD_Y,
+                        TILE_SIZE
+                );
+
         if (enteredNewTile) {
-    
+
             int row = player.getCurrentRow();
             int col = player.getCurrentCol();
-    
+
             if (row >= 0 && row < ROWS &&
                     col >= 0 && col < COLS) {
-    
-                startIceTimer(player, row, col);
+
+                startIceTimer(
+                        player,
+                        row,
+                        col
+                );
             }
         }
     }
+
+
     // מפעילה את מנגנון שבירת הקרח: קרח רגיל -> סדוק -> מים
-    private void startIceTimer(Penguin player, int row, int col) {
-    
+    private void startIceTimer(
+            Penguin player,
+            int row,
+            int col
+    ) {
+
         IceTile tile = tiles[row][col];
-    
+
         Timer timer = new Timer(2000, null);
-    
+
         timer.addActionListener(e -> {
-    
+
             // משנים את מצב הקרח
             tile.breakIce();
-    
+
             repaint();
-    
+
             // אם הקרח כבר הפך למים - מסיימים את הטיימר
             if (tile.getState() == IceTile.WATER) {
+
                 timer.stop();
                 return;
             }
-    
+
             // בודקים אם הפינגווין עדיין עומד על אותה משבצת
             boolean stillOnSameTile =
                     player.getCurrentRow() == row &&
-                    player.getCurrentCol() == col;
-    
+                            player.getCurrentCol() == col;
+
             // אם הוא כבר לא שם - אין צורך בשבירה נוספת
             if (!stillOnSameTile) {
+
                 timer.stop();
             }
         });
-    
+
         timer.start();
     }
+
+
     // בודקת אם אחד הפינגווינים נמצא על מים ומחליטה מי ניצח בסיבוב
     private void checkGameOver() {
-    
+
         int row1 = player1.getCurrentRow();
         int col1 = player1.getCurrentCol();
-    
+
         int row2 = player2.getCurrentRow();
         int col2 = player2.getCurrentCol();
-    
+
         boolean player1InWater = false;
         boolean player2InWater = false;
-    
+
         if (row1 >= 0 && row1 < ROWS &&
                 col1 >= 0 && col1 < COLS) {
-    
+
             player1InWater =
                     tiles[row1][col1].getState() == IceTile.WATER;
         }
-    
+
         if (row2 >= 0 && row2 < ROWS &&
                 col2 >= 0 && col2 < COLS) {
-    
+
             player2InWater =
                     tiles[row2][col2].getState() == IceTile.WATER;
         }
-    
+
         // שניהם נפלו
         if (player1InWater && player2InWater) {
+
             finishRound(0);
             return;
         }
-    
+
         // Player 1 נפל
         if (player1InWater) {
+
             finishRound(2);
             return;
         }
-    
+
         // Player 2 נפל
         if (player2InWater) {
+
             finishRound(1);
         }
     }
+
+
     // מעדכנת את הניקוד ומחליטה אם להתחיל סיבוב חדש או לסיים את המשחק
     private void finishRound(int winner) {
-    
+
         roundOver = true;
-    
+
         String message;
-    
+
         if (winner == 1) {
-    
+
             player1Score++;
-    
+
             message = "Player 1 wins the round!";
-    
+
         } else if (winner == 2) {
-    
+
             player2Score++;
-    
+
             message = "Player 2 wins the round!";
-    
+
         } else {
-    
+
             message = "The round is a draw!";
         }
-    
+
         message +=
                 "\n\nScore:"
                         + "\nPlayer 1: " + player1Score
                         + "\nPlayer 2: " + player2Score;
-    
+
         JOptionPane.showMessageDialog(
                 this,
                 message
         );
-    
+
         if (player1Score >= WINNING_SCORE ||
                 player2Score >= WINNING_SCORE) {
-    
+
             finishMatch();
-    
+
         } else {
-    
+
             startNextRound();
         }
     }
+
+
     // מאפסת את הלוח ומחזירה את השחקנים לנקודות ההתחלה לקראת סיבוב חדש
     private void startNextRound() {
-    
+
         // יוצרים מחדש את כל הקרח
         tiles = new IceTile[ROWS][COLS];
-    
+
         for (int row = 0; row < ROWS; row++) {
+
             for (int col = 0; col < COLS; col++) {
-    
+
                 tiles[row][col] = new IceTile();
             }
         }
-    
+
         // מחזירים את הפינגווינים לנקודות ההתחלה
-        player1.setPosition(110, 50);
-        player2.setPosition(650, 450);
-    
+        player1.setPosition(
+                110,
+                50
+        );
+
+        player2.setPosition(
+                650,
+                450
+        );
+
         // מאפסים את מיקום המשבצת השמור שלהם
         player1.resetTilePosition();
         player2.resetTilePosition();
-    
-      // מאפסים מקשים
+
+        // מאפסים את כל המקשים
         inputHandler.reset();
-    
+
         roundOver = false;
-    
+
         repaint();
-    
+
         requestFocusInWindow();
     }
+
+
     // מסיימת את המשחק, עוצרת את המוזיקה ועוברת למסך הסיום
     private void finishMatch() {
 
         gameRunning = false;
+
         musicPlayer.stop();
+
         String winnerText;
-    
+
         if (player1Score > player2Score) {
-    
-            winnerText =
-                    "Player 1 Wins!";
-    
+
+            winnerText = "Player 1 Wins!";
+
         } else {
-    
-            winnerText =
-                    "Player 2 Wins!";
+
+            winnerText = "Player 2 Wins!";
         }
-    
+
         GameOverPanel gameOverPanel =
                 new GameOverPanel(
                         window,
                         winnerText
                 );
-    
+
         window.setContentPane(
                 gameOverPanel
         );
-    
+
         window.revalidate();
-    
+
         window.repaint();
     }
+
+
     // מציירת על המסך את הרקע, הניקוד, הקרח והפינגווינים
     @Override
     protected void paintComponent(Graphics g) {
-    
+
         super.paintComponent(g);
-    
+
         // ציור תמונת הרקע על כל החלון
         g.drawImage(
                 backgroundImage,
@@ -385,17 +451,24 @@ public class GamePanel extends JPanel {
                 getHeight(),
                 this
         );
-    
+
         // הצגת הניקוד
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.BOLD, 18));
-    
+
+        g.setFont(
+                new Font(
+                        "Arial",
+                        Font.BOLD,
+                        18
+                )
+        );
+
         g.drawString(
                 "First to 3 wins!",
                 10,
                 25
         );
-    
+
         g.drawString(
                 "Player 1: "
                         + player1Score
@@ -404,14 +477,20 @@ public class GamePanel extends JPanel {
                 280,
                 25
         );
-    
+
         // ציור לוח הקרח
         for (int row = 0; row < ROWS; row++) {
+
             for (int col = 0; col < COLS; col++) {
-    
-                int x = col * TILE_SIZE + BOARD_X;
-                int y = row * TILE_SIZE + BOARD_Y;
-    
+
+                int x =
+                        col * TILE_SIZE
+                                + BOARD_X;
+
+                int y =
+                        row * TILE_SIZE
+                                + BOARD_Y;
+
                 tiles[row][col].draw(
                         g,
                         x,
@@ -420,7 +499,7 @@ public class GamePanel extends JPanel {
                 );
             }
         }
-    
+
         // ציור הפינגווינים מעל הקרח
         player1.draw(g);
         player2.draw(g);
