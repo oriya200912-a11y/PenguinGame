@@ -114,14 +114,16 @@ public class GamePanel extends JPanel {
     }
 
 
-    // בודקת אם הפינגווין יצא מגבולות לוח הקרח
-    private boolean isOutsideBoard(Penguin player) {
+// בודקת אם הפינגווין יצא מגבולות לוח הקרח
+private boolean isOutsideBoard(Penguin player) {
 
-        return player.getX() < BOARD_X
-                || player.getY() < BOARD_Y
-                || player.getX() + player.getSize() > BOARD_X + BOARD_WIDTH
-                || player.getY() + player.getSize() > BOARD_Y + BOARD_HEIGHT;
-    }
+    return player.getX() < gameBoard.getBoardX()
+            || player.getY() < gameBoard.getBoardY()
+            || player.getX() + player.getSize()
+            > gameBoard.getBoardX() + gameBoard.getBoardWidth()
+            || player.getY() + player.getSize()
+            > gameBoard.getBoardY() + gameBoard.getBoardHeight();
+}
 
 
     // מזיזה פינגווין, מטפלת בהתנגשות ודוחפת את הפינגווין השני
