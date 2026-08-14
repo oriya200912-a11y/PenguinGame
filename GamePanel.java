@@ -400,10 +400,10 @@ private boolean isOutsideBoard(Penguin player) {
     // מציירת על המסך את הרקע, הניקוד, הקרח והפינגווינים
     @Override
     protected void paintComponent(Graphics g) {
-
+    
         super.paintComponent(g);
-
-        // ציור תמונת הרקע על כל החלון
+    
+        // ציור תמונת הרקע
         g.drawImage(
                 backgroundImage,
                 0,
@@ -412,24 +412,17 @@ private boolean isOutsideBoard(Penguin player) {
                 getHeight(),
                 this
         );
-
+    
         // הצגת הניקוד
         g.setColor(Color.BLACK);
-
-        g.setFont(
-                new Font(
-                        "Arial",
-                        Font.BOLD,
-                        18
-                )
-        );
-
+        g.setFont(new Font("Arial", Font.BOLD, 18));
+    
         g.drawString(
                 "First to 3 wins!",
                 10,
                 25
         );
-
+    
         g.drawString(
                 "Player 1: "
                         + player1Score
@@ -438,29 +431,10 @@ private boolean isOutsideBoard(Penguin player) {
                 280,
                 25
         );
-
-        // ציור לוח הקרח
-        for (int row = 0; row < ROWS; row++) {
-
-            for (int col = 0; col < COLS; col++) {
-
-                int x =
-                        col * TILE_SIZE
-                                + BOARD_X;
-
-                int y =
-                        row * TILE_SIZE
-                                + BOARD_Y;
-
-                tiles[row][col].draw(
-                        g,
-                        x,
-                        y,
-                        TILE_SIZE
-                );
-            }
-        }
-
+    
+        // ציור כל לוח הקרח
+        gameBoard.draw(g);
+    
         // ציור הפינגווינים מעל הקרח
         player1.draw(g);
         player2.draw(g);
