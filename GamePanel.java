@@ -253,52 +253,39 @@ private boolean isOutsideBoard(Penguin player) {
 
     // בודקת אם אחד הפינגווינים נמצא על מים ומחליטה מי ניצח בסיבוב
     private void checkGameOver() {
-
+    
         int row1 = player1.getCurrentRow();
         int col1 = player1.getCurrentCol();
-
+    
         int row2 = player2.getCurrentRow();
         int col2 = player2.getCurrentCol();
-
-        boolean player1InWater = false;
-        boolean player2InWater = false;
-
-        if (row1 >= 0 && row1 < ROWS &&
-                col1 >= 0 && col1 < COLS) {
-
-            player1InWater =
-                    tiles[row1][col1].getState() == IceTile.WATER;
-        }
-
-        if (row2 >= 0 && row2 < ROWS &&
-                col2 >= 0 && col2 < COLS) {
-
-            player2InWater =
-                    tiles[row2][col2].getState() == IceTile.WATER;
-        }
-
+    
+        boolean player1InWater =
+                gameBoard.isWater(row1, col1);
+    
+        boolean player2InWater =
+                gameBoard.isWater(row2, col2);
+    
         // שניהם נפלו
         if (player1InWater && player2InWater) {
-
+    
             finishRound(0);
             return;
         }
-
+    
         // Player 1 נפל
         if (player1InWater) {
-
+    
             finishRound(2);
             return;
         }
-
+    
         // Player 2 נפל
         if (player2InWater) {
-
+    
             finishRound(1);
         }
     }
-
-
     // מעדכנת את הניקוד ומחליטה אם להתחיל סיבוב חדש או לסיים את המשחק
     private void finishRound(int winner) {
 
