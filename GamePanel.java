@@ -424,7 +424,7 @@ public class GamePanel extends JPanel {
     private void finishMatch() {
 
         gameRunning = false;
-    
+        musicPlayer.stop();
         String winnerText;
     
         if (player1Score > player2Score) {
