@@ -63,35 +63,35 @@ public class GamePanel extends JPanel {
         
                 int speed = player1.getSpeed();
         
-                if (wPressed) {
+                if (inputHandler.isWPressed()) {
                     moveWithPush(player1, player2, 0, -speed);
                 }
-        
-                if (sPressed) {
+                
+                if (inputHandler.isSPressed()) {
                     moveWithPush(player1, player2, 0, speed);
                 }
-        
-                if (aPressed) {
+                
+                if (inputHandler.isAPressed()) {
                     moveWithPush(player1, player2, -speed, 0);
                 }
-        
-                if (dPressed) {
+                
+                if (inputHandler.isDPressed()) {
                     moveWithPush(player1, player2, speed, 0);
                 }
-        
-                if (upPressed) {
+                
+                if (inputHandler.isUpPressed()) {
                     moveWithPush(player2, player1, 0, -speed);
                 }
-        
-                if (downPressed) {
+                
+                if (inputHandler.isDownPressed()) {
                     moveWithPush(player2, player1, 0, speed);
                 }
-        
-                if (leftPressed) {
+                
+                if (inputHandler.isLeftPressed()) {
                     moveWithPush(player2, player1, -speed, 0);
                 }
-        
-                if (rightPressed) {
+                
+                if (inputHandler.isRightPressed()) {
                     moveWithPush(player2, player1, speed, 0);
                 }
         
