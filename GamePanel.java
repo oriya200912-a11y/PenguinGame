@@ -6,7 +6,6 @@ public class GamePanel extends JPanel {
     private Penguin player1;
     private Penguin player2;
     private Image backgroundImage;
-    private IceTile[][] tiles;
 
     private boolean gameRunning = true;
     private final int WINNING_SCORE = 3;
