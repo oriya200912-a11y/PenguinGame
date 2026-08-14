@@ -217,7 +217,7 @@ private boolean isOutsideBoard(Penguin player) {
             int col
     ) {
 
-        IceTile tile = tiles[row][col];
+        IceTile tile = gameBoard.getTile(row, col);
 
         Timer timer = new Timer(2000, null);
 
